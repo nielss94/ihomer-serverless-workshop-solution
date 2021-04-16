@@ -1,0 +1,24 @@
+service: crypto-exchange
+useDotenv: true
+
+frameworkVersion: '2'
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    lambdaHashingVersion: 20201221
+    stage: dev
+    region: ${env:REGION}
+    apiGateway:
+        shouldStartNameWithService: true
+
+functions:
+    getCoins:
+        handler: src/handlers/getCoins.handler
+        events:
+            -   http:
+                    path: /api/coins
+                    method: get
+plugins:
+    - serverless-offline
+    - serverless-plugin-typescript
