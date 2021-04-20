@@ -30,7 +30,7 @@ export function CoinRow({coin, mode}: Props) {
             {
                 mode === 'Sell' && (
                     <div className="flex-1 flex items-center">
-                        ${parseToMoney((coin as OwnedCryptoCoin).amount)}
+                        {parseToMoney((coin as OwnedCryptoCoin).amount)}
                     </div>
                 )
             }

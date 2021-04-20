@@ -19,7 +19,7 @@ export function CoinsOverview({
 }: Props) {
     return (
         <div>
-            <CoinHeader />
+            <CoinHeader mode={mode} />
 
             {!isNil(error) && (
                 <div className="p-2 bg-red-200 rounded my-2">{error}</div>

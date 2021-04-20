@@ -1,9 +1,16 @@
 import React from 'react';
 
-interface Props {}
+interface Props {
+    mode: 'Buy' | 'Sell'
+}
+export function CoinHeader({mode}: Props) {
+    const columns = ['Cryptocurrency', 'Price'];
 
-export function CoinHeader(props: Props) {
-    const columns = ['Cryptocurrency', 'Price', ''];
+    if(mode === 'Sell') {
+        columns.push('Amount');
+    }
+
+    columns.push('');
 
     return (
         <div className="flex border-b border-gray-200 py-2">
