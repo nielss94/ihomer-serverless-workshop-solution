@@ -1,6 +1,6 @@
-import create, { State } from 'zustand';
-import { CryptoCoin, Currency } from '../models/Currency';
-import { CoinsService } from '../services/coins.service';
+import create, {State} from 'zustand';
+import {CryptoCoin} from '../models/Currency';
+import {CoinsService} from '../services/coins.service';
 
 interface CoinsState extends State {
     coins: CryptoCoin[];

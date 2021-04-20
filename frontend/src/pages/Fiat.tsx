@@ -33,7 +33,7 @@ export function Fiat(props: Props) {
                                 <div className="text-2xl">
                                     Your current balance
                                 </div>
-                                <div className="text-4xl">$0,00</div>
+                                <div className="text-4xl">{parseToMoney(currentBalance, {symbol: '$'})}</div>
                             </div>
                         )}
 

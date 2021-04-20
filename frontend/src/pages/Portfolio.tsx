@@ -15,6 +15,16 @@ export function Portfolio(props: Props) {
 
     const coins = useCoinsStore((state) => state.coins);
     const portfolio = usePortfolioStore((state) => state.portfolio);
+    const refreshPortfolio = usePortfolioStore((state) => state.refresh);
+
+    useEffect(() => {
+        const refreshInterval = setInterval(async () => {
+            await refreshPortfolio();
+        }, 2000);
+        return () => {
+            clearInterval(refreshInterval);
+        };
+    }, []);
 
     useEffect(() => {
         setTotal(
