@@ -22,6 +22,10 @@ The Docker website has some great resources: https://www.docker.com/get-started.
 _NOTE: To use Docker on Windows, you need to enable Hyper-V in BIOS. Every BIOS has its own way to do this. It is also 
 known as virtualization._
 
+### Useful for the excercises
+
+- [Serverless framework documentation](https://www.serverless.com/framework/docs/)
+
 ### Create a `.env` file in the `sls` directory
 
 ```dotenv
@@ -65,7 +69,7 @@ With the DynamoDb instance started we should create a table.
     * Hash Attribute Type = String
 
 After submitting, the new table will be created. Do not add any data yet, first we will have to register at the
-crypto exchange. We will do this by going to the following url: https://workshop.ihomer.nl/api/register. We will see a
+crypto exchange. We will do this by going to the following url: https://api.workshop.ihomer.nl/api/register. We will see a
 response giving us a `uniqueId`. We will use this `uniqueId` as our `pk` for the DynamoDb record.
 
 In the admin GUI we will do the following.
@@ -88,6 +92,12 @@ We will also add this `uniqueId` to our `.env` file in the `sls` directory.
 UNIQUE_ID='<<insert your uniqueId>>'
 ```
 
+#### Running the serverless backend
+
+To run the serverless application, install all project dependencies with the `npm install` command, from inside the `sls` directory. Then, run `sls offline start`. This will start the serverless backend locally and it will mock the AWS services we are using. You will notice that the program will emit logs. Why this is happening, will become clear in the next step.
+
+NOTE: If you are using Powershell, the `sls` command might not work. Use `serverless` instead.
+
 #### Running the frontend
 
 We can also run the frontend project. To do this first run `npm install` inside the `frontend` directory and after this
@@ -102,7 +112,7 @@ We have now finished setting up the project for any further exercises.
 
 In order to buy cryptocurrencies we should deposit fiat to our wallet. The fiat we are using in this project is dollar.
 We can see our current balance in the top right of the menu. If we click on this balance we will see the fiat detail
-page on this page it is possible to deposit the current balance, but doing so will result in a 404 error. We would have
+page on this page it is possible to deposit the current balance, but doing so will result in a 404 error. We will have
 to implement this API call in our serverless project.
 
 #### Step 1 - Add an API gateway endpoint to our `serverless.yml`
@@ -183,8 +193,7 @@ the `CryptoService`.
 We do this by going to `http://localhost:8001/tables/wallet` hitting the wallet record and changing the current fiat
 to `0` and hitting save.
 
-To validate the purchase of fiat we should call the already defined `depositBalance` method in the `CryptoService` using
-our the amount given in the request body, when accepted we store the amount of fiat inside our wallet.
+To validate the purchase of fiat we should call the already defined `depositBalance` method in the `CryptoService` using the amount given in the request body, when accepted we store the amount of fiat inside our wallet.
 
 #### Finished
 
@@ -219,8 +228,9 @@ error occurs. In this task, you will buy coins. It's important to know that once
 it in your wallet. Otherwise, it will be lost.
 
 * Add a new API PUT endpoint `/api/portfolio/buy` to the serverless project
-* Create a handler for this endpoint, that will use the CryptoService to buy your coins.
-* Save your purchased coin in your wallet
+* Create a handler for this endpoint, that will use the `CryptoService` to `buy` your coins.
+* Save your purchased coin in your wallet. It is up to you to decide a data structure for your coins. 
+* Update the fiat in your wallet.
 * Return the result of the buy method as a response of the endpoint
 
 ### #4 - Reading wallet coins (Portfolio)
@@ -230,7 +240,16 @@ previous exercises to create this endpoint. The endpoint needs the following req
 
 - The endpoint should be `/api/portfolio`
 - It should be a GET request
-- It should return the coins array from your wallet
+- It should return an array of coin objects from your wallet. A coin object should have an `id` and an `amount`.
+
+Example of a coin:
+
+```
+{
+    id: "AVA",
+    amount: 1337
+}
+```
 
 ### #5 - Sell coins
 

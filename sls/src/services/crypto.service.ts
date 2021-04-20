@@ -23,7 +23,7 @@ export class CryptoService {
             return (await axios.get(BASE_URL + '/coins')).data;
         } catch (e) {
             console.log(e);
-            return [];
+            throw e;
         }
     }
 
@@ -34,7 +34,7 @@ export class CryptoService {
             ).data;
         } catch (e) {
             console.log(e);
-            return e;
+            throw e;
         }
     }
 
@@ -45,7 +45,7 @@ export class CryptoService {
             ).data;
         } catch (e) {
             console.log(e);
-            return e;
+            throw e;
         }
     }
 
@@ -58,7 +58,7 @@ export class CryptoService {
             ).data;
         } catch (e) {
             console.log(e);
-            return 0.0;
+            throw e;
         }
     }
 }
