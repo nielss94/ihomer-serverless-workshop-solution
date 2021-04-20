@@ -54,6 +54,7 @@ export function Portfolio(props: Props) {
                             return {
                                 ...ownedCrypto,
                                 price: calculatePrice(ownedCrypto),
+                                symbol: coins.find((coin) => coin.id === ownedCrypto.id)?.symbol || '?'
                             };
                         })}
                         isLoading={false}

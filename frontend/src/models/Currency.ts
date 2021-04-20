@@ -6,6 +6,7 @@ export interface Currency {
 
 export interface OwnedCryptoCoin extends Currency {
     amount: number;
+    price: number;
 }
 
 export interface CryptoCoin extends Currency {
