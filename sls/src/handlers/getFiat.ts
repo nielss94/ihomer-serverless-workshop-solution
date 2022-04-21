@@ -5,7 +5,7 @@ export const handler = async (event) => {
 
   const {DYNAMO_TABLE = '', UNIQUE_ID = ''} = process.env;
   const walletClient = getWalletClient();
-  
+
   const result = await walletClient
       .get({
           TableName: DYNAMO_TABLE,
@@ -14,9 +14,10 @@ export const handler = async (event) => {
           },
       })
       .promise();
-  
+
   const wallet = result.Item;
+
   return httpResponse(200, {
-    balance: wallet.fiat
+    balance: wallet?.fiat || 0
   });
 };

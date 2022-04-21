@@ -6,13 +6,13 @@ export const handler = async (event) => {
 
   const body = JSON.parse(event.body);
   console.log(body);
-  
+
   try {
     const buyResult = await CryptoService.buyCoin(body)
-    
+
     const {DYNAMO_TABLE = '', UNIQUE_ID = ''} = process.env;
     const walletClient = getWalletClient();
-    
+
     const result = await walletClient
         .get({
             TableName: DYNAMO_TABLE,
@@ -21,11 +21,11 @@ export const handler = async (event) => {
             },
         })
         .promise();
-    
+
     const wallet = result.Item;
 
     const walletCoins = wallet?.coins || [];
-    
+
     const newCoins = walletCoins.map(coin => {
       if (coin.id === body.coinId) {
         coin.amount += body.amount;
@@ -39,7 +39,7 @@ export const handler = async (event) => {
         amount: body.amount
       })
     }
-    
+
     await walletClient
         .update({
             TableName: DYNAMO_TABLE,
