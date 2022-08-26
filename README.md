@@ -4,22 +4,22 @@
 
 ### Node
 
-Make sure you have installed a version of Node 14. Node can be installed via: https://nodejs.org/en/download/
+Make sure you have installed a version of Node 16. Node can be installed via: https://nodejs.org/en/download/
 
 ### Serverless
 
 After installing Node we should install the serverless framework. This can be done by
 running `npm install -g serverless`. You can check if the installation was successful by running `sls -v`. Any version
-above `2.30.0` should be fine.
+above `3.0.0` should be fine.
 
 ### Docker
 
-Make sure to install Docker Desktop. We will use this to run a local instance of DynamoDb. DynamoDb is a NoSQL database 
+Make sure to install Docker Desktop. We will use this to run a local instance of DynamoDb. DynamoDb is a NoSQL database
 service in AWS.
 
 The Docker website has some great resources: https://www.docker.com/get-started.
 
-_NOTE: To use Docker on Windows, you need to enable Hyper-V in BIOS. Every BIOS has its own way to do this. It is also 
+_NOTE: To use Docker on Windows, you need to enable Hyper-V in BIOS. Every BIOS has its own way to do this. It is also
 known as virtualization._
 
 ### Useful for the excercises
@@ -96,7 +96,7 @@ UNIQUE_ID='<<insert your uniqueId>>'
 
 To run the serverless application, install all project dependencies with the `npm install` command, from inside the `sls` directory. Then, run `sls offline start`. This will start the serverless backend locally and it will mock the AWS services we are using. You will notice that the program will emit logs. Why this is happening, will become clear in the next step.
 
-NOTE: If you are using Powershell, the `sls` command might not work. Use `serverless` instead.
+_NOTE: If you are using Powershell, the `sls` command might not work. Use `serverless` instead._
 
 #### Running the frontend
 
@@ -229,13 +229,13 @@ it in your wallet. Otherwise, it will be lost.
 
 * Add a new API PUT endpoint `/api/portfolio/buy` to the serverless project
 * Create a handler for this endpoint, that will use the `CryptoService` to `buy` your coins.
-* Save your purchased coin in your wallet. It is up to you to decide a data structure for your coins. 
+* Save your purchased coin in your wallet. It is up to you to decide a data structure for your coins.
 * Update the fiat in your wallet.
 * Return the result of the buy method as a response of the endpoint
 
 ### #4 - Reading wallet coins (Portfolio)
 
-To access your portfolio, we need an API endpoint that retrieves the coins from our local wallet. Use your experience from 
+To access your portfolio, we need an API endpoint that retrieves the coins from our local wallet. Use your experience from
 previous exercises to create this endpoint. The endpoint needs the following requirements:
 
 - The endpoint should be `/api/portfolio`
