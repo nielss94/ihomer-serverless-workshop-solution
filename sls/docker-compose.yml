@@ -12,7 +12,7 @@ services:
   dynamodb-gui:
     image: aaronshaf/dynamodb-admin
     environment:
-      DYNAMO_ENDPOINT: http://host.docker.internal:8000
+      DYNAMO_ENDPOINT: http://172.17.0.1:8000
     ports:
       - 8001:8001
 

@@ -15,40 +15,48 @@ provider:
 functions:
     getCoins:
         handler: src/handlers/getCoins.handler
-        events:
-            -   http:
-                    path: /api/coins
-                    method: get
     getFiat:
         handler: src/handlers/getFiat.handler
-        events:
-            -   http:
-                    path: /api/fiat
-                    method: get
     getPortfolio:
         handler: src/handlers/getPortfolio.handler
-        events:
-            -   http:
-                    path: /api/portfolio
-                    method: get
     depositFiat:
         handler: src/handlers/depositFiat.handler
-        events:
-            -   http:
-                    path: /api/fiat/deposit
-                    method: put
     buy:
         handler: src/handlers/buy.handler
-        events:
-            -   http:
-                    path: /api/portfolio/buy
-                    method: put
     sell:
         handler: src/handlers/sell.handler
-        events:
-            -   http:
-                    path: /api/portfolio/sell
-                    method: put
+
+custom:
+    appSync:
+        name: api
+        authenticationType: API_KEY
+        schema:
+#            - graphql/_mutation.graphql
+            - graphql/_query.graphql
+            - graphql/types.graphql
+        dataSources:
+            -   type: AWS_LAMBDA
+                name: getPortfolio
+                config:
+                    functionName: getPortfolio
+        mappingTemplates:
+            -   dataSource: getPortfolio
+                type: Query
+                field: getPortfolio
+                request: false
+                response: false
+
+    appsync-simulator:
+        apiKey: 0123456789
+        location: .build
+        watch: false
+
+
+package:
+    patterns:
+        - 'graphql/**'
+
 plugins:
-    - serverless-offline
     - serverless-plugin-typescript
+    - serverless-appsync-simulator
+    - serverless-offline

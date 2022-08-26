@@ -1,0 +1,16 @@
+type Currency {
+    id: String!
+    name: String!
+    symbol: String!
+}
+
+type CoinOrder {
+    coinId: String!
+    amount: Float!
+}
+
+type PortfolioItem {
+    currency: Currency!
+    amount: Float!
+}
+
