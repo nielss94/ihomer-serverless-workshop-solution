@@ -3,6 +3,12 @@ type Coin {
     name: String!
     symbol: String!
     amount: Float!
+    market: CoinMarket
+}
+
+type CoinMarket {
+    eur: Float!
+    usd: Float!
 }
 
 type PortfolioItem {

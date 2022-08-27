@@ -6,7 +6,6 @@ export const handler = async ({ info: {selectionSetList}}) => {
 
     for (const wallet of wallets) {
         await WalletService.enrich(wallet, selectionSetList);
-
     }
 
     return wallets;

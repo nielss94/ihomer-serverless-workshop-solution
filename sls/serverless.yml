@@ -29,7 +29,7 @@ functions:
     listCoins:
         handler: src/handlers/coin/listCoins.handler
     getCoin:
-        handler: src/handlers/coin /getCoin.handler
+        handler: src/handlers/coin/getCoin.handler
 
 custom:
     appSync:
