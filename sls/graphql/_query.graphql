@@ -1,3 +1,4 @@
 type Query {
-    getPortfolio: [PortfolioItem]
+    getWallet(walletId: String!): Wallet
+    listWallets: [Wallet]
 }

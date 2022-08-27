@@ -9,45 +9,57 @@ provider:
     lambdaHashingVersion: 20201221
     stage: dev
     region: ${env:REGION}
+    environment:
+        DYNAMO_URL: ${env:DYNAMO_URL}
+        DYNAMO_TABLE: ${env:DYNAMO_TABLE}
+        REGION: ${env:REGION}
+        AWS_ACCESS_KEY_ID: ${env:AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${env:AWS_SECRET_ACCESS_KEY}
+        UNIQUE_ID: ${env:UNIQUE_ID}
     apiGateway:
         shouldStartNameWithService: true
 
 functions:
-    getCoins:
-        handler: src/handlers/getCoins.handler
-    getFiat:
-        handler: src/handlers/getFiat.handler
-    getPortfolio:
-        handler: src/handlers/getPortfolio.handler
-    depositFiat:
-        handler: src/handlers/depositFiat.handler
-    buy:
-        handler: src/handlers/buy.handler
-    sell:
-        handler: src/handlers/sell.handler
+    getWallet:
+        handler: src/handlers/getWallet.handler
+    listWallets:
+        handler: src/handlers/listWallets.handler
 
 custom:
     appSync:
         name: api
         authenticationType: API_KEY
         schema:
-#            - graphql/_mutation.graphql
             - graphql/_query.graphql
             - graphql/types.graphql
         dataSources:
             -   type: AWS_LAMBDA
-                name: getPortfolio
+                name: getWallet
                 config:
-                    functionName: getPortfolio
+                    functionName: getWallet
+            -   type: AWS_LAMBDA
+                name: listWallets
+                config:
+                    functionName: listWallets
         mappingTemplates:
-            -   dataSource: getPortfolio
+            -   dataSource: getWallet
                 type: Query
-                field: getPortfolio
+                field: getWallet
+                request: false
+                response: false
+            -   dataSource: listWallets
+                type: Query
+                field: listWallets
                 request: false
                 response: false
 
     appsync-simulator:
-        apiKey: 0123456789
+        dynamoDb:
+            region: ${env:REGION}
+            endpoint: http://localhost:8000
+            accessKeyId: ${env:AWS_ACCESS_KEY_ID}
+            secretAccessKey: ${env:AWS_SECRET_ACCESS_KEY}
+        apiKey: da2-fakeApiId123456
         location: .build
         watch: false
 

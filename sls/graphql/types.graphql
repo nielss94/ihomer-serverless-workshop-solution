@@ -1,16 +1,17 @@
-type Currency {
-    id: String!
+type Coin {
+    pk: ID!
     name: String!
     symbol: String!
-}
-
-type CoinOrder {
-    coinId: String!
     amount: Float!
 }
 
 type PortfolioItem {
-    currency: Currency!
+    coin: Coin!
     amount: Float!
+}
+
+type Wallet {
+    pk: ID!
+    portfolio: [PortfolioItem]
 }
 
