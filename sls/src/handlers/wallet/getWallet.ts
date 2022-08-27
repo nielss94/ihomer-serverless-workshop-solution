@@ -1,4 +1,4 @@
-import {WalletService} from "../services/wallet.service";
+import {WalletService} from "../../services/wallet.service";
 
 export const handler = async ({arguments: {walletId}, info: {selectionSetList}}) => {
     const wallet = await WalletService.get(walletId);

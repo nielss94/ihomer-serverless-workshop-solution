@@ -20,10 +20,16 @@ provider:
         shouldStartNameWithService: true
 
 functions:
-    getWallet:
-        handler: src/handlers/getWallet.handler
+    # Wallets
     listWallets:
-        handler: src/handlers/listWallets.handler
+        handler: src/handlers/wallet/listWallets.handler
+    getWallet:
+        handler: src/handlers/wallet/getWallet.handler
+    # Coins
+    listCoins:
+        handler: src/handlers/coin/listCoins.handler
+    getCoin:
+        handler: src/handlers/coin /getCoin.handler
 
 custom:
     appSync:
@@ -33,6 +39,7 @@ custom:
             - graphql/_query.graphql
             - graphql/types.graphql
         dataSources:
+            # Wallets
             -   type: AWS_LAMBDA
                 name: getWallet
                 config:
@@ -41,15 +48,36 @@ custom:
                 name: listWallets
                 config:
                     functionName: listWallets
+            # Coins
+            -   type: AWS_LAMBDA
+                name: listCoins
+                config:
+                    functionName: listCoins
+            -   type: AWS_LAMBDA
+                name: getCoin
+                config:
+                    functionName: getCoin
         mappingTemplates:
+            # Wallets
+            -   dataSource: listWallets
+                type: Query
+                field: listWallets
+                request: false
+                response: false
             -   dataSource: getWallet
                 type: Query
                 field: getWallet
                 request: false
                 response: false
-            -   dataSource: listWallets
+            # Coins
+            -   dataSource: listCoins
                 type: Query
-                field: listWallets
+                field: listCoins
+                request: false
+                response: false
+            -   dataSource: getCoin
+                type: Query
+                field: getCoin
                 request: false
                 response: false
 
